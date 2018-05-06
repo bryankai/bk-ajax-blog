@@ -4,6 +4,8 @@ const uuid = require('uuid/v4')
 const file = path.join(__dirname, 'posts.json')
 let index
 
+console.log('models')
+
 function getAll (limit) {
   const contents = fs.readFileSync(file, 'utf-8')
   const posts = JSON.parse(contents)
@@ -19,22 +21,19 @@ function getOne (id) {
   return post
 }
 
-function create (name, borrowed=false, description='', authors) {
+function create (title, content) {
   const contents = fs.readFileSync(file, 'utf-8')
   const posts = JSON.parse(contents)
   const errors = []
   let response
-  if (!name) {
-    errors.push('name is required')
+  if (!title) {
+    errors.push('title is required')
     response = { errors }
-  } else if (!borrowed && !typeof borrowed === 'boolean') {
-      errors.push('borrowed status is required')
+  } else if (!content) {
+      errors.push('content is required')
       response = { errors }
   } else {
-    const authorsArr = authors.split(',')
-    // Need to create uuid for each author, put it in an object with two keys: name and id
-    // authors will be an array of objects
-    const post = { id: uuid(), name: name, borrowed: borrowed, description:description, authors:authorsArr }
+    const post = { id: uuid(), title: title, content: content }
     posts.push(post)
     response = post
     const json = JSON.stringify(posts)
@@ -43,14 +42,26 @@ function create (name, borrowed=false, description='', authors) {
   return response
 }
 
-function update (id, name) {
+function update (id, title, content) {
   const contents = fs.readFileSync(file, 'utf-8')
   const posts = JSON.parse(contents)
   const post = getOne(id)
-  posts[index].name = name
-  const json = JSON.stringify(posts)
-  fs.writeFileSync(file, json)
-  return posts[index]
+  const errors = []
+  console.log(posts[index]);
+  if (!title) {
+    errors.push('title is required')
+    response = { errors }
+  } else if (!content) {
+    errors.push('content is required')
+    response = { errors }
+  } else {
+    posts[index].title = title
+    posts[index].content = content
+    const json = JSON.stringify(posts)
+    fs.writeFileSync(file, json)
+    response = posts[index]
+  }
+  return response
 }
 
 function remove (id) {

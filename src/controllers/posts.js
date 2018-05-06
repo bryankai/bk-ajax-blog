@@ -1,4 +1,4 @@
-Postconst model = require('../models/posts')
+const model = require('../models/posts')
 
 console.log('controllers')
 
@@ -15,11 +15,9 @@ function getOne (req, res, next) {
 }
 
 function create (req, res, next) {
-  const name = req.body.name
-  const borrowed = req.body.borrowed
-  const description = req.body.description
-  const authors = req.body.authors
-  const data = model.create(name, borrowed, description, authors)
+  const title = req.body.title
+  const content = req.body.content
+  const data = model.create(title, content)
 
   if(data.errors) {
     return next({ status: 400, message: `Could not create new post`, errors: data.errors })
@@ -29,9 +27,9 @@ function create (req, res, next) {
 
 function update (req, res, next) {
   const id = req.params.id
-  const name = req.body.name
-  console.log(name)
-  const newPost = model.update(id,name)
+  const title = req.body.title
+  const content = req.body.content
+  const newPost = model.update(id, title, content)
   res.status(200).json({ data: newPost })
 }
 

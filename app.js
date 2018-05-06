@@ -9,8 +9,8 @@ app.use(bodyParser.json())
 if (process.env.NODE_ENV === 'development')
 app.use(morgan('dev'))
 
-const booksRoutes = require('./src/routes/books')
-app.use('/books', booksRoutes)
+const postsRoutes = require('./src/routes/posts')
+app.use('/posts', postsRoutes)
 
 app.use((err, req, res, next) => {
   console.error(err)
