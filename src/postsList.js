@@ -12,23 +12,17 @@
       data.forEach(blogPost => {
         const sidebar = document.getElementById('sidebar')
         const post = document.createElement('div')
+        sidebar.appendChild(post)
         post.classList.add('list-group-item', 'list-group-item-action')
+        post.id = blogPost.id
         post.innerHTML = blogPost.title
         post.addEventListener('click', event => {
-          // Populate the right column
-          // section
-            // header
-              // h2
-              // innerHTML = .title
-            // article
-              // p
-              // innerHTML = .content
-            // aside
-              // edit
-              // delete
-          
+          request(`/posts/${event.target.id}`, 'get')
+          .then(response => {
+            clearView()
+            populateView(response)
+          })
         })
-        sidebar.appendChild(post)
       })
     })
 
