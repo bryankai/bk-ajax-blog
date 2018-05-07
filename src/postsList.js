@@ -16,6 +16,17 @@
         post.innerHTML = blogPost.title
         post.addEventListener('click', event => {
           // Populate the right column
+          // section
+            // header
+              // h2
+              // innerHTML = .title
+            // article
+              // p
+              // innerHTML = .content
+            // aside
+              // edit
+              // delete
+          
         })
         sidebar.appendChild(post)
       })
