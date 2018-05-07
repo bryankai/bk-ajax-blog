@@ -8,17 +8,16 @@
       const {data} = response.data
       const sidebar = document.getElementById('sidebar')
       const listGroup = document.createElement('ul')
-      listgroup.classList.add('list-group')
+      listGroup.classList.add('list-group')
       data.forEach(blogPost => {
         const sidebar = document.getElementById('sidebar')
         const post = document.createElement('div')
-        post.classList.add('list-group-item list-group-item-action')
-        post.innerHTML = post.title
+        post.classList.add('list-group-item', 'list-group-item-action')
+        post.innerHTML = blogPost.title
         post.addEventListener('click', event => {
           // Populate the right column
         })
         sidebar.appendChild(post)
-
       })
     })
 
