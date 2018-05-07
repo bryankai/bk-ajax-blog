@@ -1,5 +1,5 @@
 function request(path, method = 'get', body = null) {
-  return axios(`http://localhost:3000${path}`, {
+  return axios(`https://bk-ajax-blog.herokuapp.com${path}`, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
@@ -38,8 +38,6 @@ function populateSideBar() {
 
 function populateView(response) {
   const post = response.data.data
-  console.log(post)
-  // Populate the right column
   // section
   const view = document.getElementById('view')
   const section = document.createElement('section')
@@ -148,7 +146,10 @@ function populatePostForm(response, type) {
 
   // Update Post
   if (type == 'update') {
+
     submitButton.innerHTML = 'Update Post'
+    titleInput.value = response.data.data.title
+    contentInput.value = response.data.data.content
     document.getElementById('post-form').addEventListener('submit', function(event) {
       event.preventDefault()
       const title = event.target.title.value
